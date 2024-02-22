@@ -1,0 +1,13 @@
+1. React 개발 세팅
+ - node js
+ - node.js 설치하면 npm,npx라는 명령어를 사용할 수 있음
+ - 리액트 프로젝트를 생성할 폴더에서 터미널을 연 후 npm install - g create-react-app 실행
+
+2. npm install -g create-react-app
+
+3. npx create-react-app test
+
+
+- 생성한 프로젝트를 실행할 때는 npm start 실행
+
+- 종료 - ctrl + c
