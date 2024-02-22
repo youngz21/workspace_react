@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import { type } from '@testing-library/user-event/dist/type';
 
 function App() {
   //let title = '첫번째 글';
@@ -14,6 +15,9 @@ function App() {
   let [likeCnt,setLikeCnt] = useState([0,0,0]);
   let [isShow, setIsShow] = useState(false);  
 
+  //input 태그에 입력한 값을 저장하고 있는 state 변수
+
+  let [newTitle, setNewTitle] = useState('');
 
   return (
     <div className="App">
@@ -30,11 +34,29 @@ function App() {
       {
         title.map((e,i)=>{
           return (
-            <List key={i} title={e} likeCnt={likeCnt} idx={i}  setLikeCnt={setLikeCnt} setIsShow={setIsShow}/>  //title[i]
+            <List setTitle={setTitle} key={i} title={title} likeCnt={likeCnt} idx={i}  setLikeCnt={setLikeCnt} setIsShow={setIsShow}/>  //title[i]
             
           );
         })
       }
+
+      <div>
+        <input type='text' onChange={(e) => {
+        // input 태그에 입력한 값을 출격
+        setNewTitle(e.target.value)
+
+        }} />
+        <input type='button' value={'save'} onClick={(e)=>{
+          let copyTitle = [...title];
+          copyTitle.push(newTitle);
+          // copyTitle.unshift(newTitle); 배열 가장 앞에 추가 
+
+          setTitle(copyTitle);
+              
+        }}/>
+
+      </div>
+
 
       {
         isShow ? <Detail /> : ''
@@ -52,16 +74,27 @@ function List(props) {
 
        props.setIsShow(true)
       
-      }}>{props.title}</span><span onClick={() => {
+      }}>{props.title[props.idx]}</span>
+      
+      {/* <span onClick={() => {
         let newLikeCnt = [...props.likeCnt];
         newLikeCnt[props.idx]++;
         props.setLikeCnt(newLikeCnt);
-      }}>👍</span> {props.likeCnt[props.idx]} 
+      }}>👍</span> {props.likeCnt[props.idx]}  */}
+
       </h4>
     <p> 2024 Feb,19</p>
+    <button type='button' onClick={(e) => {
+ 
+      let copyTitle2 = [...props.title];
+      copyTitle2.splice(props.idx, 1); 
+      props.setTitle(copyTitle2)
+    }} >Delete</button>
+
   </div>
   );
 }
+
 
 function Detail() {
   return (
